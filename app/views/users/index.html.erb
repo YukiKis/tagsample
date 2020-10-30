@@ -1,15 +1,18 @@
-<h1>TAG MAKEW</h1>
+<h1>User list</h1>
 
-<%= form_with model: @user, local: true do |f|  %>
-    <%= f.label :tag_list%>
-    <%= f.text_field :tag_list, class: "form-control" %>
-    <%= f.submit "SUBMIT" %>
+<% if notice.present? %>
+    <p><%= notice %></p>
 <% end %>
+<%# ActsAsTaggableOn::Tag.each do |tag| %>
+    <%#= tag %>
+<%# end %>
 
-<div class="user-name">
-    <h1><%= @user.name %></h1>
-    <h2><%= @user.email %></h2>
-    <%= @user.tag_list.each do |tag| %>
-        <p><%= tag %><%= link_to "削除する", delete_tag_path(tag), method: :delete %></p>
-    <% end %>
-</div>
+<% @users.each do |user| %>
+    <div class="user-<%= user.id %>">
+        <p><%= link_to user.name, user %></p>
+        <p><%= user.email %></p>
+        <% user.tag_list.each do |tag| %>
+            <%= tag %>
+        <% end %>
+    </div>
+<% end %>

@@ -1,0 +1,22 @@
+<div class="user-show">
+    <p><%= @user.name %></p>
+    <p><%= @user.email %></p> 
+</div>
+
+<div>
+    <p><%= @user.name %> has those tags below</p>
+    <p>
+        <% @user.tag_list.each do |tag| %>
+            <%= link_to tag, tag_show_path(tag) %><%= link_to "DELETE", delete_tag_path(tag), method: :delete %>
+        <% end %>
+    </p>
+</div>
+
+<div class="tag-form">
+    <p>Do you want to add a tag?</p>
+    <%= form_with model: @user, local: true do |f| %>
+        <%= f.label :tag_list, "TAG" %>
+        <%= f.text_field :tag_list, value: @user.tag_list.join(",") %>
+        <%= f.submit "ADD" %>
+    <% end %>
+</div>
